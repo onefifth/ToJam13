@@ -16,7 +16,7 @@ public class AnimTest : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector2 joyDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 joyDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         anim.SetFloat("xWalk", joyDir.x);
         anim.SetFloat("yWalk", joyDir.y);
 
@@ -49,14 +49,17 @@ public class AnimTest : MonoBehaviour {
         anim.SetTrigger("hit");
         anim.SetFloat("hitX", xDir);
         idle = false;
+        //add motion
     }
 
+    //called by SMB_Idle upon entering idle animation
     public void OnIdle() {
 
         idle = true;
 
     }
 
+    //called upon exiting Disrobe animation
     public void DropTrou() {
 
         GameObject clothes = (GameObject)Instantiate(Resources.Load("PlayerClothes"), transform.position, transform.rotation);
