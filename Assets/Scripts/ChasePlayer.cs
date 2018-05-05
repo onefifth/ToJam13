@@ -87,6 +87,7 @@ public class ChasePlayer : MonoBehaviour {
             sr.transform.eulerAngles = new Vector3(sr.transform.eulerAngles.x, sr.transform.eulerAngles.y, -angleToPlayer);
 
             tackleDir = toPlayer;
+            anim.SetFloat("yWalk", toPlayer.z);
 
             lastTackle = Time.realtimeSinceStartup;
             tackling = true;
