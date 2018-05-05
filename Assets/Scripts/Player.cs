@@ -4,31 +4,74 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     public int m_screenwidth { get; private set; }
-    public int m_targetPlayerRotation { get; private set; }
+    public Vector3 m_targetPlayerDirection;
+
+    private WorldScroller p_worldScroller;
+
+    public bool m_running { get; private set; }
+    public bool m_dashing { get; private set; }
+    public bool m_fakeDash { get; private set; }
+    public float m_steering { get; private set; }
+    public float m_runSpeed { get; private set; }
+
+    private float m_lastDash { get; set; }
+    public float m_maxSpeed { get; private set; }
+
+    [SerializeField]
+    private AnimationCurve DashAccelCurve;
+    [SerializeField]
+    private float DashDuration;
+    [SerializeField]
+    private float DashSpeed;
+
 
     // Use this for initialization
     void Start () {
         m_screenwidth = Screen.width;
-        m_targetPlayerRotation = 0;
-
+        p_worldScroller = GameObject.FindGameObjectWithTag("World").GetComponent<WorldScroller>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
-            if ( Input.mousePosition.x > m_screenwidth / 2.0 ) {
-                TurnPlayer(1);      // Right side of screen
+
+    void FixedUpdate() {
+        // Clamped input direction
+        m_steering = Mathf.Clamp(Mathf.RoundToInt(Input.GetAxisRaw("Horizontal")), -1, 1);
+        m_targetPlayerDirection.z = Mathf.Clamp(Mathf.RoundToInt(Input.GetAxisRaw("Vertical")), 0, 1);
+        m_running = Input.GetButton("Run");
+
+        if ( Input.GetButtonDown("Run") ) {
+            if ( m_targetPlayerDirection.magnitude > 0f ) {
+                m_lastDash = Time.realtimeSinceStartup;
+                m_dashing = true;
+                m_fakeDash = false;
             } else {
-                TurnPlayer(-1);     // Left side of screen
+                m_fakeDash = true;
             }
         }
-	}
 
-    // Negative is to the players right
-    void TurnPlayer( int direction ) {
-        m_targetPlayerRotation += direction;
-        m_targetPlayerRotation = Mathf.Clamp(m_targetPlayerRotation, 0, 2);
-        
-        transform.localRotation = Quaternion.AngleAxis(m_targetPlayerRotation * -25.0f, Vector3.forward);
+        m_runSpeed += m_targetPlayerDirection.z * 4f * Time.fixedDeltaTime;
+
+        //m_targetPlayerDirection = Vector3.RotateTowards(m_targetPlayerDirection, 35f * m_steering, Vector3.up) * m_targetPlayerDirection;
+
+        if (m_targetPlayerDirection.z <= 0 && !m_running) {
+            m_runSpeed *= 1.5f * Time.fixedDeltaTime;
+        }
+
+        m_runSpeed = Mathf.Clamp(m_runSpeed, 0f, 6f);
+
+        if ( m_dashing && ( Time.realtimeSinceStartup - m_lastDash ) < DashDuration) {
+            m_runSpeed *= DashSpeed * (DashAccelCurve.Evaluate((Time.realtimeSinceStartup - m_lastDash) / DashDuration) + 1f);
+            m_steering *= DashSpeed * 0.8f * (DashAccelCurve.Evaluate((Time.realtimeSinceStartup - m_lastDash) / DashDuration) + 1f);
+        } else {
+            m_dashing = false;
+        }
+
+        Debug.DrawRay(transform.position, m_targetPlayerDirection, Color.red);
+    }
+
+    // Update is called once per frame
+    void Update () {
+        WorldScroller.s_movementDirection.x = m_steering;
+        WorldScroller.s_movementDirection.z = -m_runSpeed;
+
+        //transform.localRotation = Quaternion.AngleAxis(m_targetPlayerDirection.x * -35.0f, Vector3.forward);
     }
 }
