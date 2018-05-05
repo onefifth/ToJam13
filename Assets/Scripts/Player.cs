@@ -14,11 +14,13 @@ public class Player : MonoBehaviour {
 
     public bool m_running { get; private set; }
     public bool m_dashing { get; private set; }
+    public bool m_doubleDashing { get; private set; }
     public bool m_fakeDash { get; private set; }
     public float m_steering { get; private set; }
     public float m_runSpeed { get; private set; }
 
-    public float m_brakingFriction { get; private set; }
+    [SerializeField]
+    public float BrakingFriction;
 
     private float m_lastDash;
     private Rigidbody m_rigidbody;
@@ -34,7 +36,14 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private float DashDuration;
     [SerializeField]
+    private float DashCooldown;
+    [SerializeField]
     private float DashSpeed;
+    [SerializeField]
+    private float RunningSpeedMultiplier;
+
+    [SerializeField]
+    private AnimationCurve TurnSpeedCurve;
 
     [SerializeField]
     private float DiagonalAngle = 35f;
@@ -44,7 +53,8 @@ public class Player : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        m_brakingFriction = 0.8f;
+        m_dashing = false;
+        m_doubleDashing = false;
         m_smoothPlayerDirection = Vector3.forward;
         m_actualPlayerDirection = Vector3.forward;
         m_screenwidth = Screen.width;
@@ -78,28 +88,38 @@ public class Player : MonoBehaviour {
             m_targetPlayerDirection = Quaternion.AngleAxis(SidewaysAngle * m_steering, Vector3.up) * m_targetPlayerDirection;
         }
 
+        if ((Time.realtimeSinceStartup - m_lastDash) > DashDuration + 0.1f) {
+            if ((Time.realtimeSinceStartup - m_lastDash) > DashDuration + DashCooldown) {
+                m_doubleDashing = false;
+            }
+            m_dashing = m_doubleDashing;
+        }
+
         if (Input.GetButtonDown("Run")) {
-            if (m_targetPlayerDirection.sqrMagnitude > 0f && (Time.realtimeSinceStartup - m_lastDash) > DashDuration) {
-                m_lastDash = Time.realtimeSinceStartup;
-                m_dashing = true;
-                m_fakeDash = false;
-            } else {
+            if (m_targetPlayerDirection.sqrMagnitude > 0f) {
+                if (!m_dashing || !m_doubleDashing) {
+                    m_lastDash = Time.realtimeSinceStartup;
+                    m_doubleDashing = m_dashing;
+                    m_dashing = true;
+                    m_fakeDash = false;
+                }
+            } else if (!m_dashing) {
                 m_fakeDash = m_runSpeed < 0.5f;
             }
         }
 
         if (!canMove) {
-            m_runSpeed *= m_brakingFriction;
+            m_runSpeed -= (BrakingFriction * Time.fixedDeltaTime);
         } else { 
-            m_runSpeed += m_targetPlayerDirection.magnitude * 4f * Time.fixedDeltaTime;
+            m_runSpeed += m_targetPlayerDirection.magnitude * 4.5f * Time.fixedDeltaTime;
 
             if (m_targetPlayerDirection.sqrMagnitude <= 0f) {
-                m_runSpeed *= m_brakingFriction;
+                m_runSpeed -= (BrakingFriction * Time.fixedDeltaTime);
             }
 
             m_runSpeed = Mathf.Clamp(m_runSpeed, 0f, MaxSpeed);
 
-            if (m_dashing) {
+            if (m_dashing && (Time.realtimeSinceStartup - m_lastDash) < DashDuration) {
                 m_runSpeed *= DashSpeed * (DashAccelCurve.Evaluate((Time.realtimeSinceStartup - m_lastDash) / DashDuration) + 1f);
                 //m_steering *= DashSpeed * 0.8f * (DashAccelCurve.Evaluate((Time.realtimeSinceStartup - m_lastDash) / DashDuration) + 1f);
             } else {
@@ -107,15 +127,20 @@ public class Player : MonoBehaviour {
                     // Weird logic to apply extra breaking when pressing run and no direction
                     // Lets you move into the "tap to do cool stall" animation slightly quicker
                     if (m_targetPlayerDirection.sqrMagnitude <= 0f) { 
-                        m_runSpeed *= (m_brakingFriction * 0.5f);
-                    } else { 
-                        m_runSpeed *= 1.5f;
+                        m_runSpeed -= (BrakingFriction * 0.5f * Time.fixedDeltaTime);
+                    } else {
+                        m_runSpeed *= RunningSpeedMultiplier;
                     }
                 }
-                m_dashing = false;
             }
 
-            m_turnSpeed = Mathf.Clamp(MaxSpeed * 1.5f - m_runSpeed, 1f, 50f) * 2f * Time.fixedDeltaTime;
+            Debug.Log(m_runSpeed / (MaxSpeed * RunningSpeedMultiplier));
+            if (m_dashing && Input.GetButtonDown("Run")) {
+                m_turnSpeed = 500f;
+            } else {
+                m_turnSpeed = TurnSpeedCurve.Evaluate((m_runSpeed / (MaxSpeed * RunningSpeedMultiplier))) * 20f * Time.fixedDeltaTime;
+            }
+            
             m_smoothPlayerDirection = Vector3.RotateTowards(m_smoothPlayerDirection, m_targetPlayerDirection, m_turnSpeed, 0.0f);
 
             float snappedAngle = Vector3.Angle(Vector3.forward, m_smoothPlayerDirection);
@@ -134,7 +159,11 @@ public class Player : MonoBehaviour {
                 m_actualPlayerDirection = Quaternion.AngleAxis(snappedAngle, Vector3.up) * Vector3.forward;
             }
         }
-        transform.position += m_actualPlayerDirection * (m_runSpeed * 0.01f);
+
+        if(m_runSpeed < 0f)
+            m_runSpeed = 0f;
+
+        transform.position += m_actualPlayerDirection * (m_runSpeed * 0.005f);
     }
 
     // Update is called once per frame
