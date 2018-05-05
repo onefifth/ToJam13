@@ -174,8 +174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_targetPlayerDirection: {x: 0, y: 0, z: 0}
-  m_actualPlayerDirection: {x: 0.57357645, y: 0, z: 0.819152}
-  m_smoothPlayerDirection: {x: 0.790396, y: 0, z: 0.612581}
+  m_actualPlayerDirection: {x: 0.9961946, y: 0, z: 0.08715588}
+  m_smoothPlayerDirection: {x: 0.9962286, y: 0, z: 0.08715964}
+  BrakingFriction: 17
   canMove: 1
   canTurn: 1
   MaxSpeed: 6
@@ -203,8 +204,70 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  DashDuration: 0.6
-  DashSpeed: 1.1
+  DashDuration: 0.25
+  DashCooldown: 0.6
+  DashSpeed: 2.2
+  RunningSpeedMultiplier: 1.6
+  TurnSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.24423778
+      value: 3.4994345
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.26861444
+      value: 1.0007331
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.4347312
+      value: 1.0041307
+      inSlope: -0.011970971
+      outSlope: -0.011970971
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.275
+    - serializedVersion: 3
+      time: 0.8981443
+      value: 0.20227672
+      inSlope: -0.013267012
+      outSlope: -0.013267012
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5434773
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.0015934
+      value: 0.20057948
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.0240214
+      value: 0.000106690335
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   DiagonalAngle: 35
   SidewaysAngle: 85
 --- !u!198 &198602210938386384
@@ -4840,7 +4903,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1af37afae9dba449290b7db640315b30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.16, y: 0.16}
