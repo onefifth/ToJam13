@@ -25,7 +25,7 @@ public class AnimTest : MonoBehaviour {
             Walk(joyDir);
         }
 
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKeyUp(KeyCode.Space))
         {
             anim.SetTrigger("disrobe");
         }
