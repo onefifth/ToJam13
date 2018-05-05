@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
 
     private float m_turnSpeed;
     private WorldScroller p_worldScroller;
+    private PlayerAnimator playerAnimator;
 
     public bool m_running { get; private set; }
     public bool m_dashing { get; private set; }
@@ -19,7 +20,11 @@ public class Player : MonoBehaviour {
 
     public float m_brakingFriction { get; private set; }
 
-    private float m_lastDash { get; set; }
+    private float m_lastDash;
+    private Rigidbody m_rigidbody;
+
+    public bool canMove = false;
+    public bool canTurn = false;
 
     [SerializeField]
     private float MaxSpeed;
@@ -43,7 +48,20 @@ public class Player : MonoBehaviour {
         m_smoothPlayerDirection = Vector3.forward;
         m_actualPlayerDirection = Vector3.forward;
         m_screenwidth = Screen.width;
-        p_worldScroller = GameObject.FindGameObjectWithTag("World").GetComponent<WorldScroller>();
+        //p_worldScroller = GameObject.FindGameObjectWithTag("World").GetComponent<WorldScroller>();
+
+        playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        m_rigidbody = GetComponent<Rigidbody>();
+    }
+
+    public void StartDisrobe() {
+        playerAnimator.StartDisrobe();
+    }
+
+    public void OnDisrobeComplete() {
+        canMove = true;
+        canTurn = true;
+        GameStateController.gState = GameState.PLAYING;
     }
 
     void FixedUpdate() {
@@ -61,7 +79,7 @@ public class Player : MonoBehaviour {
         }
 
         if (Input.GetButtonDown("Run")) {
-            if (m_targetPlayerDirection.sqrMagnitude > 0f) {
+            if (m_targetPlayerDirection.sqrMagnitude > 0f && (Time.realtimeSinceStartup - m_lastDash) > DashDuration) {
                 m_lastDash = Time.realtimeSinceStartup;
                 m_dashing = true;
                 m_fakeDash = false;
@@ -70,46 +88,53 @@ public class Player : MonoBehaviour {
             }
         }
 
-        m_runSpeed += m_targetPlayerDirection.magnitude * 4f * Time.fixedDeltaTime;
-
-        if (m_targetPlayerDirection.sqrMagnitude <= 0f) {
+        if (!canMove) {
             m_runSpeed *= m_brakingFriction;
-        }
+        } else { 
+            m_runSpeed += m_targetPlayerDirection.magnitude * 4f * Time.fixedDeltaTime;
 
-        m_runSpeed = Mathf.Clamp(m_runSpeed, 0f, MaxSpeed);
-
-        if (m_dashing && (Time.realtimeSinceStartup - m_lastDash) < DashDuration) {
-            m_runSpeed *= DashSpeed * (DashAccelCurve.Evaluate((Time.realtimeSinceStartup - m_lastDash) / DashDuration) + 1f);
-            //m_steering *= DashSpeed * 0.8f * (DashAccelCurve.Evaluate((Time.realtimeSinceStartup - m_lastDash) / DashDuration) + 1f);
-        } else {
-            if (m_running) {
-                m_runSpeed *= 1.5f;
+            if (m_targetPlayerDirection.sqrMagnitude <= 0f) {
+                m_runSpeed *= m_brakingFriction;
             }
-            m_dashing = false;
+
+            m_runSpeed = Mathf.Clamp(m_runSpeed, 0f, MaxSpeed);
+
+            if (m_dashing) {
+                m_runSpeed *= DashSpeed * (DashAccelCurve.Evaluate((Time.realtimeSinceStartup - m_lastDash) / DashDuration) + 1f);
+                //m_steering *= DashSpeed * 0.8f * (DashAccelCurve.Evaluate((Time.realtimeSinceStartup - m_lastDash) / DashDuration) + 1f);
+            } else {
+                if (m_running) {
+                    // Weird logic to apply extra breaking when pressing run and no direction
+                    // Lets you move into the "tap to do cool stall" animation slightly quicker
+                    if (m_targetPlayerDirection.sqrMagnitude <= 0f) { 
+                        m_runSpeed *= (m_brakingFriction * 0.5f);
+                    } else { 
+                        m_runSpeed *= 1.5f;
+                    }
+                }
+                m_dashing = false;
+            }
+
+            m_turnSpeed = Mathf.Clamp(MaxSpeed * 1.5f - m_runSpeed, 1f, 50f) * 2f * Time.fixedDeltaTime;
+            m_smoothPlayerDirection = Vector3.RotateTowards(m_smoothPlayerDirection, m_targetPlayerDirection, m_turnSpeed, 0.0f);
+
+            float snappedAngle = Vector3.Angle(Vector3.forward, m_smoothPlayerDirection);
+            float absAngle = Mathf.Abs(snappedAngle);
+            float sign = Mathf.Sign(Vector3.Dot(m_smoothPlayerDirection, Vector3.right));
+
+            if (absAngle < DiagonalAngle * 0.5f) {
+                snappedAngle = 0f;
+            } else if (absAngle < ((SidewaysAngle - DiagonalAngle) * 0.5f + DiagonalAngle)) {
+                snappedAngle = DiagonalAngle * sign;
+            } else {
+                snappedAngle = SidewaysAngle * sign;
+            }
+
+            if (canTurn) {
+                m_actualPlayerDirection = Quaternion.AngleAxis(snappedAngle, Vector3.up) * Vector3.forward;
+            }
         }
-
-        m_turnSpeed = Mathf.Clamp(MaxSpeed * 1.5f - m_runSpeed, 1f, 50f) * 2f * Time.fixedDeltaTime;
-
-        Debug.Log(m_smoothPlayerDirection);
-        m_smoothPlayerDirection = Vector3.RotateTowards(m_smoothPlayerDirection, m_targetPlayerDirection, m_turnSpeed, 0.0f);
-
-        float snappedAngle = Vector3.Angle(Vector3.forward, m_smoothPlayerDirection);
-        float absAngle = Mathf.Abs(snappedAngle);
-        float sign = Mathf.Sign(Vector3.Dot(m_smoothPlayerDirection, Vector3.right));
-
-        Debug.Log(snappedAngle);
-
-        if (absAngle < DiagonalAngle * 0.5f) {
-            snappedAngle = 0f;
-        } else if (absAngle < ((SidewaysAngle - DiagonalAngle) * 0.5f + DiagonalAngle)) {
-            snappedAngle = DiagonalAngle * sign;
-        } else {
-            snappedAngle = SidewaysAngle * sign;
-        }
-
-        m_actualPlayerDirection = Quaternion.AngleAxis(snappedAngle, Vector3.up) * Vector3.forward;
-
-        //m_actualPlayerDirection = m_smoothPlayerDirection;
+        transform.position += m_actualPlayerDirection * (m_runSpeed * 0.01f);
     }
 
     // Update is called once per frame
@@ -117,7 +142,6 @@ public class Player : MonoBehaviour {
         Debug.DrawRay(transform.position, m_actualPlayerDirection * m_runSpeed, Color.green);
         Debug.DrawRay(transform.position, m_smoothPlayerDirection * m_runSpeed * 0.8f, Color.blue);
         Debug.DrawRay(transform.position, m_targetPlayerDirection * m_runSpeed * 0.5f, Color.red);
-        
 
         //WorldScroller.s_movementDirection.x = m_steering;
         //WorldScroller.s_movementDirection.z = -m_runSpeed;
