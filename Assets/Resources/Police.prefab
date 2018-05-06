@@ -270,7 +270,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: bb88e0379fae544fd83493cc35575587, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.847
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -846,7 +846,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: f19e1ac6008bf4c0a849a34d4c7593c0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.838
   m_Pitch: 1
   Loop: 0
   Mute: 0
