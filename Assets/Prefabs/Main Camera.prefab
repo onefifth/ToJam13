@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 114252945670562822}
   - component: {fileID: 114653365896764356}
   - component: {fileID: 95941103385603924}
+  - component: {fileID: 114910259035680136}
   m_Layer: 5
   m_Name: Newspaper
   m_TagString: Untagged
@@ -457,6 +458,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: DUMMY STREAKS IN PLACES
+--- !u!114 &114910259035680136
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855353967366906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f41c5317087243b79f5592549707f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114971099560970406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5146,7 +5158,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855353967366906}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.8200005}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_Children:
   - {fileID: 224758871586389360}

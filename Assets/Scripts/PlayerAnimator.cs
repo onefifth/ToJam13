@@ -47,6 +47,7 @@ public class PlayerAnimator : MonoBehaviour {
             anim.SetFloat("hitX", transform.position.x - damageOrigin.x);
             idle = false;
             dead = true;
+
         }
 
         //add motion
