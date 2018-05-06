@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 54082287049671626}
   - component: {fileID: 114152145793817142}
   - component: {fileID: 114744084257761336}
-  - component: {fileID: 114464155255860912}
   m_Layer: 0
   m_Name: SoccerPlayerLying
   m_TagString: Untagged
@@ -71,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446989004102990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.44, y: 0, z: -4.13}
+  m_LocalPosition: {x: 3.45, y: 0, z: 15.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4866212551022424}
@@ -161,18 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7f37a0df86f4ef797c78edf508f384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114464155255860912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1446989004102990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c97463ae219694f03b8d2dc77917fe8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reactRadius: 1
+  DamageAmount: 0
+  Jumpable: 1
 --- !u!114 &114669756285734474
 MonoBehaviour:
   m_ObjectHideFlags: 1

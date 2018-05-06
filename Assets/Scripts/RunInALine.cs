@@ -43,8 +43,13 @@ public class RunInALine : MonoBehaviour
                 transform.position += walkVec;
 
                 anim.SetBool("walking", true);
-                anim.SetFloat("xWalk", walkDir.x);
-                anim.SetFloat("yWalk", walkDir.z);
+                float xDir = walkDir.x;
+                if(xDir < 0) {
+                    xDir = -1.0f;
+                }
+                print(xDir);
+                anim.SetFloat("yWalk", xDir);
+				anim.SetFloat("xWalk", walkDir.x);
 
 
             }
