@@ -47,7 +47,9 @@ public class CameraAnimator : MonoBehaviour
 
     void Update()
     {
-        if (CurrentViewpoint == -1) {
+        //if (Viewpoints[CurrentViewpoint].Name == "NONE") // Same thing.
+        if (CurrentViewpoint == 2) {
+            lastViewpoint = 2;
             return;
         }
 
@@ -59,16 +61,12 @@ public class CameraAnimator : MonoBehaviour
 
             //transitionDuration = Viewpoints[CurrentViewpoint].TransitionDuration + (lastDuration - sinceTransitionStarted);
 
-            if (lastViewpoint == 1) {
-                NewspaperObject.transform.SetParent(transform.parent);
-            }
-
             if (lastViewpoint == 0 || lastViewpoint == Viewpoints.Length - 1)
                 transitionDuration = Viewpoints[lastViewpoint].TransitionDuration;
             else
                 transitionDuration = Viewpoints[CurrentViewpoint].TransitionDuration;
 
-            sinceTransitionStarted = 0;
+            sinceTransitionStarted = 0f;
             lastViewpoint = CurrentViewpoint;
 
             originPosition = transform.position;
@@ -84,16 +82,23 @@ public class CameraAnimator : MonoBehaviour
         Quaternion destinationRotation = Quaternion.Slerp(originRotation, Quaternion.AngleAxis(viewpoint.Pitch, Vector3.right), easedStep);
         float destinationSize = Mathf.Lerp(originSize, viewpoint.OrthoSize, easedStep);
 
-        if (step < 1)
+        if (step < 1f) {
             sinceTransitionStarted += Time.deltaTime;
+        } else {
+            sinceTransitionStarted = transitionDuration;
+        }
 
-        transform.position = Vector3.Lerp(transform.position, destinationPosition, 1 - Mathf.Pow(0.005f, Time.deltaTime));
-        transform.rotation = Quaternion.Slerp(transform.rotation, destinationRotation, 1 - Mathf.Pow(0.005f, Time.deltaTime));
-        m_camera.orthographicSize = Mathf.Lerp(m_camera.orthographicSize, destinationSize, 1 - Mathf.Pow(0.005f, Time.deltaTime));
+        transform.position = destinationPosition; //Vector3.Lerp(transform.position, destinationPosition, 1 - Mathf.Pow(0.005f, Time.deltaTime));
+        transform.rotation = destinationRotation; //Quaternion.Slerp(transform.rotation, destinationRotation, 1 - Mathf.Pow(0.005f, Time.deltaTime));
+        m_camera.orthographicSize = destinationSize; //Mathf.Lerp(m_camera.orthographicSize, destinationSize, 1 - Mathf.Pow(0.005f, Time.deltaTime));
 
         if (CurrentViewpoint == 1) {
             float paperScale = (m_camera.orthographicSize / 5f);
             NewspaperObject.transform.localScale = new Vector3(paperScale, paperScale, paperScale);
         }
+    }
+
+    public bool IsTransitioning() {
+        return sinceTransitionStarted < transitionDuration;
     }
 }
