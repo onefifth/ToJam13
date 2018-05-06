@@ -183,6 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7f37a0df86f4ef797c78edf508f384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageAmount: 0
+  Jumpable: 0
 --- !u!212 &212740894791962694
 SpriteRenderer:
   m_ObjectHideFlags: 1
