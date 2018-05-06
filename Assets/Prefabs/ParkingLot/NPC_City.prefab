@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4073342098977956}
   - component: {fileID: 212740894791962694}
   - component: {fileID: 114869517563110810}
+  - component: {fileID: 114377513600780240}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -56,7 +57,7 @@ GameObject:
   - component: {fileID: 114930664725023312}
   - component: {fileID: 114804744245491304}
   m_Layer: 0
-  m_Name: NPC_Soccer
+  m_Name: NPC_City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,6 +131,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 2.73, z: 2.5}
   m_Center: {x: -0.25, y: -0.68, z: 0.66}
+--- !u!114 &114377513600780240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416894435062678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37bad3c5da7d4eb4be338f2053c9426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114804744245491304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d10e36c5a88e6e4f91f39a25159f04f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setX: 1
 --- !u!114 &114869517563110810
 MonoBehaviour:
   m_ObjectHideFlags: 1

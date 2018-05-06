@@ -6,6 +6,7 @@ public class BiomeObject : MonoBehaviour {
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    public bool setX = true;
 
     private Biome biome;
 
@@ -24,7 +25,10 @@ public class BiomeObject : MonoBehaviour {
         biome = b;
         gameObject.SetActive(true);
         ResetPosition();
-        transform.position += Vector3.right * GameStateController.Singleton.player.transform.position.x;
+        if(setX){
+            transform.position += Vector3.right * GameStateController.Singleton.player.transform.position.x;
+        }
+       
     }
 
     // Update is called once per frame

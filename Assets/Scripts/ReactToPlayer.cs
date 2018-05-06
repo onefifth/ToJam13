@@ -32,6 +32,6 @@ public class ReactToPlayer : MonoBehaviour {
 
     void DoReaction() {
 
-        anim.SetTrigger("kick");
+        anim.SetBool("kick", true);
     }
 }
