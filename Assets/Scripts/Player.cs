@@ -176,4 +176,11 @@ public class Player : MonoBehaviour {
 
         //transform.localRotation = Quaternion.AngleAxis(m_targetPlayerDirection.x * -35.0f, Vector3.forward);
     }
+
+    public void SetControllable (bool controllable) {
+
+        canMove = controllable;
+        canTurn = controllable;
+
+    }
 }
