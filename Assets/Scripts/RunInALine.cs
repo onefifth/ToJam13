@@ -35,6 +35,10 @@ public class RunInALine : MonoBehaviour
             {
                 active = true;    
             }
+            else {
+
+                active = false;
+            }
 
             if (active)
             {

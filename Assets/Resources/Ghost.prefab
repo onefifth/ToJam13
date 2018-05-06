@@ -1055,6 +1055,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7f37a0df86f4ef797c78edf508f384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageAmount: 1
+  Jumpable: 0
 --- !u!114 &114065859763539584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1111,7 +1113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bc1ad7b455e40298112e5864c91a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runRate: 3
+  runRate: 2.5
   chaseRadius: 4.5
   tackleRadius: 2
   idle: 1
