@@ -18,6 +18,9 @@ public class HitDetector : MonoBehaviour {
         //print("detected hit");
         DamagePlayer dmg = other.GetComponentInParent<DamagePlayer>();
         if(dmg) {
+            if (dmg.Jumpable && player.m_jumping){
+                return;
+            }
             //print("it has player damage on it");
             playerAnim.TakeHit(other.transform.position, dmg.DamageAmount);
             //player.SetControllable(false);
