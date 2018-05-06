@@ -40,11 +40,11 @@ public class RunInALine : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (UnityEditor.Selection.activeGameObject == gameObject)
-        {
+        //if (UnityEditor.Selection.activeGameObject == gameObject)
+        //{
             
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, runDir);
-        }
+        //}
     }
 }

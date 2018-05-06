@@ -24,6 +24,9 @@ public class ChasePlayer : MonoBehaviour {
 
     public Sfx sfxJump;
     public Sfx sfxLand;
+    public Sfx sfxWhistle;
+
+    float whistleInterval = 0;
 
 
 	private void Start()
@@ -61,9 +64,14 @@ public class ChasePlayer : MonoBehaviour {
                     anim.SetFloat("xWalk", walkDir.x);
                     anim.SetFloat("yWalk", walkDir.z);
 
+					MaybeWhistle();
                 }
 
+
             }
+
+            whistleInterval += Time.deltaTime;
+
         }
         else if (tackling)
         {
@@ -71,6 +79,15 @@ public class ChasePlayer : MonoBehaviour {
             transform.position += tackleVec;
         }
 
+    }
+
+    void MaybeWhistle() 
+    {
+        if(whistleInterval > 3.0f & Random.value < 0.05f) {
+
+            whistleInterval = 0;
+            sfxWhistle.Play();
+        }
     }
 
     void StartTackle() 
