@@ -22,6 +22,9 @@ public class ChasePlayer : MonoBehaviour {
     float lastTackle;
     Vector3 tackleDir;
 
+    public Sfx sfxJump;
+    public Sfx sfxLand;
+
 
 	private void Start()
 	{
@@ -74,6 +77,18 @@ public class ChasePlayer : MonoBehaviour {
     {
         idle = false;
         anim.SetTrigger("tackle");
+
+
+    }
+
+    public void PlayLandSFX() 
+    {
+        if(sfxLand != null)
+        {
+            sfxLand.Play();
+        }
+
+
     }
 
 	public void DoTackle()
@@ -91,6 +106,11 @@ public class ChasePlayer : MonoBehaviour {
 
             lastTackle = Time.realtimeSinceStartup;
             tackling = true;
+
+            if (sfxJump != null)
+            {
+                sfxJump.Play();
+            }
         }
 
 	}
