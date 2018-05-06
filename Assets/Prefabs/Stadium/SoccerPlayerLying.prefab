@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 54082287049671626}
   - component: {fileID: 114152145793817142}
   - component: {fileID: 114744084257761336}
-  - component: {fileID: 114464155255860912}
   m_Layer: 0
   m_Name: SoccerPlayerLying
   m_TagString: Untagged
@@ -161,18 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7f37a0df86f4ef797c78edf508f384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114464155255860912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1446989004102990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c97463ae219694f03b8d2dc77917fe8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reactRadius: 1
+  DamageAmount: 0
 --- !u!114 &114669756285734474
 MonoBehaviour:
   m_ObjectHideFlags: 1
