@@ -18,6 +18,9 @@ public class GameStateController : MonoBehaviour {
     public static GameState gState = GameState.TITLE;
     public static GameStateController Singleton { get; private set; }
 
+    public AudioSource introLoop;
+    public AudioSource mainLoop;
+
     public Player player { get; private set; }
     [SerializeField]
     private BiomeManager biomeManager;
@@ -32,6 +35,8 @@ public class GameStateController : MonoBehaviour {
         {
             Singleton = this;
         }
+
+        BeginTitle();
 	}
 
     // Update is called once per frame
@@ -50,12 +55,20 @@ public class GameStateController : MonoBehaviour {
                 }
                 break;
             case GameState.INTRO:
+                //debug skip disrobing
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    player.StartDisrobe();
+                }
                 break;
             case GameState.PLAYING:
                 break;
             case GameState.NEWSPAPER:
                 // Turn the player off.
                 // Do camera garbage.
+
+                mainLoop.volume = Mathf.Max(0, mainLoop.volume - 0.1f * Time.deltaTime);
+
                 break;
             default:
                 // Nothing.
@@ -63,11 +76,34 @@ public class GameStateController : MonoBehaviour {
         }
     }
 
+    public static void BeginTitle() {
+
+        Singleton.introLoop.Play();
+        gState = GameState.TITLE;
+
+    }
+
+    public static void BeginPlaying () {
+        Singleton.mainLoop.volume = 1;
+        Singleton.mainLoop.Play();
+        Singleton.introLoop.Stop();
+
+        gState = GameState.PLAYING;
+
+    }
+
     public static void ShowNewspaper() {
 		
 		print("GO NEWSPAPER");
+
 		Singleton.newspaper.GetComponent<Animator>().SetTrigger("appear");
         gState = GameState.NEWSPAPER;
+
+    }
+
+    public static void OnNewspaperShown() {
+
+        print("the newspaper is here");
 
     }
 }
