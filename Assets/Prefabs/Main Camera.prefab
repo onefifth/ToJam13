@@ -101,6 +101,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1709555072318082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4264230143161238}
+  m_Layer: 0
+  m_Name: NewsContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1716797446623578
 GameObject:
   m_ObjectHideFlags: 1
@@ -120,7 +135,7 @@ GameObject:
   m_IsActive: 0
 --- !u!1 &1855353967366906
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -151,6 +166,20 @@ Transform:
   m_Father: {fileID: 4680689980446300}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4264230143161238
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1709555072318082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224763758329249574}
+  m_Father: {fileID: 4680689980446300}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4439163633571042
 Transform:
   m_ObjectHideFlags: 1
@@ -177,7 +206,7 @@ Transform:
   - {fileID: 4706390139664680}
   - {fileID: 4439163633571042}
   - {fileID: 4192174678775390}
-  - {fileID: 224763758329249574}
+  - {fileID: 4264230143161238}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
@@ -214,7 +243,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4.999999
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -433,24 +462,25 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1418479135114138}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 850fbe939745b434787e19d620933bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Viewpoints:
-  - Name: Titlescreen
+  - Name: Playing
     Position: {x: 0, y: 5, z: -10}
     Pitch: 50
     OrthoSize: 5
     TransitionDuration: 3
   - Name: Newsground
-    Position: {x: 0, y: 0.85, z: -10.75}
-    Pitch: 50
+    Position: {x: 1.1, y: 0.55, z: -10}
+    Pitch: 90
     OrthoSize: 0.17
-    TransitionDuration: 0
-  StartPosition: {x: 0, y: 5, z: -10}
+    TransitionDuration: 3
+  StartPosition: {x: 0, y: 5, z: -12}
   CurrentViewpoint: 0
+  NewspaperObject: {fileID: 1709555072318082}
 --- !u!114 &114892032421210418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5184,16 +5214,16 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855353967366906}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.025, y: 0.025000006, z: 0.025000006}
   m_Children:
   - {fileID: 224758871586389360}
   - {fileID: 224597476524067152}
-  m_Father: {fileID: 4680689980446300}
-  m_RootOrder: 3
+  m_Father: {fileID: 4264230143161238}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.010000263}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 426.1, y: 440}
   m_Pivot: {x: 0.5, y: 0.5}

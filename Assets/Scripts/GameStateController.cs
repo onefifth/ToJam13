@@ -22,10 +22,12 @@ public class GameStateController : MonoBehaviour {
     [SerializeField]
     private BiomeManager biomeManager;
     private Newspaper newspaper;
+    private CameraAnimator camAnim;
 
 	// Use this for initialization
 	void Start () {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraAnimator>();
 
         newspaper = GameObject.FindObjectOfType<Newspaper>();
         if(Singleton == null)
@@ -47,6 +49,7 @@ public class GameStateController : MonoBehaviour {
                     player.StartDisrobe();
                     biomeManager.StartGame();
                     gState = GameState.INTRO;
+                    camAnim.CurrentViewpoint = -1;
                 }
                 break;
             case GameState.INTRO:
