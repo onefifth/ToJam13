@@ -134,7 +134,6 @@ public class Player : MonoBehaviour {
                 }
             }
 
-            Debug.Log(m_runSpeed / (MaxSpeed * RunningSpeedMultiplier));
             if (m_dashing && Input.GetButtonDown("Run")) {
                 m_turnSpeed = 500f;
             } else {

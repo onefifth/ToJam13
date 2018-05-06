@@ -113,6 +113,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &243392861 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114653960523093374, guid: c318d911bc9d36d40b521263b51ed053,
+    type: 2}
+  m_PrefabInternal: {fileID: 583454990}
+  m_Script: {fileID: 11500000, guid: 48690cb771d660b40b20842c63ae56d3, type: 3}
 --- !u!1001 &486011097
 Prefab:
   m_ObjectHideFlags: 0
@@ -252,10 +258,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1973379858780496, guid: c318d911bc9d36d40b521263b51ed053, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c318d911bc9d36d40b521263b51ed053, type: 2}
   m_IsPrefabParent: 0
@@ -298,6 +300,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114668130276047602, guid: 715d23259fa6a1a46924b27e1395a279,
+        type: 2}
+      propertyPath: biomeManager
+      value: 
+      objectReference: {fileID: 243392861}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 715d23259fa6a1a46924b27e1395a279, type: 2}
   m_IsPrefabParent: 0

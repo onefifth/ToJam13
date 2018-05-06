@@ -315,6 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7381e1943c331d14aad7762b0b2493fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  biomeManager: {fileID: 0}
 --- !u!198 &198644650044002132
 ParticleSystem:
   m_ObjectHideFlags: 1

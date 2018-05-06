@@ -17,9 +17,6 @@ public class WorldScroller : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        //Debug.Log(s_movementDirection);
-        foreach ( Transform child in transform ) {
-            child.localPosition += s_movementDirection * Time.deltaTime;
-        }
+
     }
 }
