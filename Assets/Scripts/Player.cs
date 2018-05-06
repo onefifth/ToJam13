@@ -71,7 +71,7 @@ public class Player : MonoBehaviour {
     public void OnDisrobeComplete() {
         canMove = true;
         canTurn = true;
-        GameStateController.gState = GameState.PLAYING;
+        GameStateController.BeginPlaying();
     }
 
     void FixedUpdate() {
