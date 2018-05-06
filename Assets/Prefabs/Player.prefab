@@ -175,11 +175,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_targetPlayerDirection: {x: 0, y: 0, z: 0}
-  m_actualPlayerDirection: {x: 0.9961946, y: 0, z: 0.08715588}
-  m_smoothPlayerDirection: {x: 0.9962286, y: 0, z: 0.08715964}
+  m_actualPlayerDirection: {x: 0, y: 0, z: 1}
+  m_smoothPlayerDirection: {x: 0, y: 0, z: 1}
   BrakingFriction: 17
-  canMove: 1
-  canTurn: 1
+  canMove: 0
+  canTurn: 0
   MaxSpeed: 6
   DashAccelCurve:
     serializedVersion: 2
@@ -209,6 +209,7 @@ MonoBehaviour:
   DashCooldown: 0.6
   DashSpeed: 2.2
   RunningSpeedMultiplier: 1.6
+  JumpDuration: 0.28
   TurnSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -271,6 +272,32 @@ MonoBehaviour:
     m_RotationOrder: 4
   DiagonalAngle: 35
   SidewaysAngle: 85
+  BounceSpeed: 2.5
+  BounceDuration: 0.45
+  BounceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.49896523
+      value: 0.9938992
+      inSlope: -3.6410747
+      outSlope: -3.6410747
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.14094622
+    - serializedVersion: 3
+      time: 1
+      value: 0.15142423
+      inSlope: -0.59771764
+      outSlope: -0.59771764
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.055555888
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &114686231475364132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4913,7 +4940,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 93c6570459f2446a6a5786492f64ef13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 42b21138630f0476493829638eec9873, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

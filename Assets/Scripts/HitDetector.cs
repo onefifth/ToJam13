@@ -16,11 +16,11 @@ public class HitDetector : MonoBehaviour {
 	public void OnTriggerEnter (Collider other) 
     {
         //print("detected hit");
-        if(other.GetComponentInParent<DamagePlayer>())
-        {
+        DamagePlayer dmg = other.GetComponentInParent<DamagePlayer>();
+        if(dmg) {
             //print("it has player damage on it");
-            playerAnim.TakeHit(other.transform.position);
-            player.SetControllable(false);
+            playerAnim.TakeHit(other.transform.position, dmg.DamageAmount);
+            //player.SetControllable(false);
         }
 
     }
