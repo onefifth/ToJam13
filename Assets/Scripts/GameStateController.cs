@@ -48,7 +48,7 @@ public class GameStateController : MonoBehaviour {
                 player.canMove = false;
                 player.canTurn = false;
                 // Update block for main titlescreen.
-                if (!camAnim.IsTransitioning() && Input.GetKeyUp(KeyCode.Space))
+                if (!camAnim.IsTransitioning() && Input.anyKeyDown)
                 {
                     player.StartDisrobe();
                     biomeManager.StartGame();
@@ -58,10 +58,10 @@ public class GameStateController : MonoBehaviour {
                 break;
             case GameState.INTRO:
                 //debug skip disrobing
-                if (Input.GetKeyUp(KeyCode.Space))
-                {
-                    player.StartDisrobe();
-                }
+                //if (Input.anyKeyDown)
+                //{
+                    //player.StartDisrobe();
+                //}
                 break;
             case GameState.PLAYING:
                 break;
