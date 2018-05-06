@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DamagePlayer : MonoBehaviour {
 
+    public int DamageAmount = 1;
+
 	// Use this for initialization
 	void Start () {
 		

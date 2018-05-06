@@ -38,13 +38,16 @@ public class PlayerAnimator : MonoBehaviour {
         anim.SetTrigger("disrobe");
     }
 
-    public void TakeHit(Vector3 damageOrigin)
+    public void TakeHit(Vector3 damageOrigin, int damageAmount)
     {
         if (!player.isDead) {
+            player.Bounce(damageOrigin);
             anim.SetTrigger("hit");
-            anim.SetFloat("hitX", transform.position.x - damageOrigin.x);
+            anim.SetFloat("hitX", (transform.position.x < damageOrigin.x)?-1:1);
             idle = false;
-            player.isDead = true;
+            if (damageAmount > 0) {
+                player.isDead = true;
+            }
         }
 
         //add motion
@@ -57,8 +60,6 @@ public class PlayerAnimator : MonoBehaviour {
 
     //called upon exiting Disrobe animation
     public void DropTrou() {
-        GameObject clothes = (GameObject)Instantiate(Resources.Load("PlayerClothes"), transform.position, transform.rotation);
-        clothes.transform.localScale = transform.lossyScale;
         player.OnDisrobeComplete();
     }
 }

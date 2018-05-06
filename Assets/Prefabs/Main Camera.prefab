@@ -667,7 +667,7 @@ MonoBehaviour:
     Position: {x: 0, y: 5, z: -10}
     Pitch: 50
     OrthoSize: 5
-    TransitionDuration: 3
+    TransitionDuration: 0.5
   - Name: Newsground
     Position: {x: 1.1, y: 0.55, z: -10}
     Pitch: 90

@@ -69,6 +69,7 @@ public class GameStateController : MonoBehaviour {
                 mainLoop.volume = Mathf.Max(0, mainLoop.volume - 0.1f * Time.deltaTime);
 
                 if (!camAnim.IsTransitioning() && Input.GetKeyUp(KeyCode.Space)) {
+                    Singleton.player.ResetPlayer();
                     newspaper.transform.parent.parent = null;
                     BeginTitle();
                 }
@@ -102,7 +103,6 @@ public class GameStateController : MonoBehaviour {
 
     public static void OnNewspaperShown() {
         Singleton.camAnim.CurrentViewpoint = 1;
-        Singleton.player.ResetPlayer();
         gState = GameState.NEWSPAPER;
     }
 }
