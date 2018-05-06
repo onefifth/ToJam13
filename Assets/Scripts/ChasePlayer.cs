@@ -22,8 +22,8 @@ public class ChasePlayer : MonoBehaviour {
     float lastTackle;
     Vector3 tackleDir;
 
-    public AudioSource sfxJump;
-    public AudioSource sfxLand;
+    public Sfx sfxJump;
+    public Sfx sfxLand;
 
 
 	private void Start()
