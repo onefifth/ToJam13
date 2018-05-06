@@ -17,7 +17,12 @@ public class Newspaper : MonoBehaviour {
         "HUMAN STREAKER GETS CARRIED AWAY",
         "CLOTHES FOUND IN PARKING LOT: RAPTURE HAS STARTED?",
         "RED TEAM LOSES",
-        "GHOSTS ARE REAL"
+        "GHOSTS ARE REAL",
+        "STREAKING HERO APPREHENDED",
+        "YOUNG DUMMY GETS NAKED",
+        "FOUND: JORTS",
+        "PARKING LOT MAYHEM",
+        "HARMLESS FUN HAD IN PARKING LOT"
 
     };
 
