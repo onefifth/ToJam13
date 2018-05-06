@@ -4,19 +4,35 @@ using UnityEngine;
 
 public class BiomeObject : MonoBehaviour {
 
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private Biome biome;
 
+    // Use this for initialization
+    void Start () {
+        initialPosition = transform.localPosition;
+        initialRotation = transform.localRotation;
+    }
 
-    public void OnSpawned() {
-        Debug.Log("Yeah!");
+    private void ResetPosition() {
+        transform.localPosition = initialPosition;
+        transform.localRotation = initialRotation;
+    }
+
+    public void OnSpawned( Biome b ) {
+        biome = b;
+        gameObject.SetActive(true);
+        ResetPosition();
+        transform.position += Vector3.right * GameStateController.Singleton.player.transform.position.x;
     }
 
     // Update is called once per frame
     void Update () {
-		
+        if (transform.position.z < GameStateController.Singleton.player.transform.position.z - 20f) {
+            ResetPosition();
+            biome.ChildReset();
+            gameObject.SetActive(false);
+        }
 	}
 }

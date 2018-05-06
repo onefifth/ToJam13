@@ -97,9 +97,11 @@ public class ChasePlayer : MonoBehaviour {
 
 	private void OnDrawGizmos()
 	{
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, chaseRadius);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, tackleRadius);
+        if (UnityEditor.Selection.activeGameObject == gameObject) {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, chaseRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, tackleRadius);
+        }
 	}
 }

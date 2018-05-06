@@ -9,6 +9,9 @@ public class BiomeManager : MonoBehaviour {
     private Transform playerTransform;
     private Player player;
 
+    [SerializeField]
+    Material groundMaterial;
+
     public float m_startingDistance { get; private set; }
     public float m_currentDistance { get; private set; }
     //public int m_lastSpawnedIndex { get; private set; }
@@ -51,8 +54,12 @@ public class BiomeManager : MonoBehaviour {
                 break;
             } else {
                 biomes[i].EnableBiome( this );
-                m_activeBiomeIndex = i;
+                m_activeBiomeIndex = i + 1;
             }
         }
+    }
+
+    public void setGroundColor(Color color) {
+        groundMaterial.SetColor("_Color", color);
     }
 }

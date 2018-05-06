@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 81482687260805670}
   - component: {fileID: 114166140227362268}
   - component: {fileID: 114668130276047602}
+  - component: {fileID: 114786105994323882}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -279,7 +280,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 657d8159db2f8ba44b941b650bb719cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -425,6 +426,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7381e1943c331d14aad7762b0b2493fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  biomeManager: {fileID: 0}
+--- !u!114 &114786105994323882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418479135114138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850fbe939745b434787e19d620933bd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Viewpoints:
+  - Name: Titlescreen
+    Position: {x: 0, y: 5, z: -10}
+    Pitch: 50
+    OrthoSize: 5
+    TransitionDuration: 3
+  - Name: Newsground
+    Position: {x: 0, y: 0.85, z: -10.75}
+    Pitch: 50
+    OrthoSize: 0.17
+    TransitionDuration: 0
+  StartPosition: {x: 0, y: 5, z: -10}
+  CurrentViewpoint: 0
 --- !u!114 &114892032421210418
 MonoBehaviour:
   m_ObjectHideFlags: 1

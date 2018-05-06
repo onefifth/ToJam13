@@ -16,9 +16,9 @@ public enum GameState
 public class GameStateController : MonoBehaviour {
 
     public static GameState gState = GameState.TITLE;
-    static GameStateController singleton;
+    public static GameStateController Singleton { get; private set; }
 
-    private Player player;
+    public Player player { get; private set; }
     [SerializeField]
     private BiomeManager biomeManager;
     private Newspaper newspaper;
@@ -28,9 +28,9 @@ public class GameStateController : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         newspaper = GameObject.FindObjectOfType<Newspaper>();
-        if(singleton == null)
+        if(Singleton == null)
         {
-            singleton = this;
+            Singleton = this;
         }
 	}
 
@@ -66,7 +66,7 @@ public class GameStateController : MonoBehaviour {
     public static void ShowNewspaper() {
 		
 		print("GO NEWSPAPER");
-		singleton.newspaper.GetComponent<Animator>().SetTrigger("appear");
+		Singleton.newspaper.GetComponent<Animator>().SetTrigger("appear");
         gState = GameState.NEWSPAPER;
 
     }

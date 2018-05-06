@@ -10,6 +10,7 @@ public class Biome : MonoBehaviour {
     BiomeManager biomeManager;
     BiomeObject[] biomeObjects;
     private int lastSpawnedBiomeObject;
+    private int totalChildren;
 
     // Use this for initialization
     void Start () {
@@ -22,18 +23,30 @@ public class Biome : MonoBehaviour {
         lastSpawnedBiomeObject = 0;
         gameObject.SetActive(true);
 
-        biomeObjects = GetComponentsInChildren<BiomeObject>();
-        System.Array.Sort(biomeObjects, SortByTransformZ);
+        bm.setGroundColor(GroundColour);
+
+        if (biomeObjects == null) {
+            biomeObjects = GetComponentsInChildren<BiomeObject>();
+            System.Array.Sort(biomeObjects, SortByTransformZ);
+        }
+        totalChildren = biomeObjects.Length;
+    }
+
+    public void ChildReset() {
+        totalChildren -= 1;
+        if (totalChildren <= 0) {
+            gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update () {
         for (int i = lastSpawnedBiomeObject; i < biomeObjects.Length; i++) {
-            if (biomeObjects[i].transform.position.z < biomeManager.m_currentDistance) {
-                biomeObjects[i].OnSpawned();
-                lastSpawnedBiomeObject = i;
-            } else {
+            if (biomeObjects[i].transform.position.z > biomeManager.m_currentDistance) {
                 break;
+            } else {
+                biomeObjects[i].OnSpawned( this );
+                lastSpawnedBiomeObject = i + 1;
             }
         }
     }
