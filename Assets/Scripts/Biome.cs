@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Biome : MonoBehaviour {
-
-    [SerializeField]
-    Color GroundColour;
-
     BiomeManager biomeManager;
     BiomeObject[] biomeObjects;
     private int lastSpawnedBiomeObject;
@@ -22,8 +18,6 @@ public class Biome : MonoBehaviour {
         biomeManager = bm;
         lastSpawnedBiomeObject = 0;
         gameObject.SetActive(true);
-
-        bm.setGroundColor(GroundColour);
 
         if (biomeObjects == null) {
             biomeObjects = GetComponentsInChildren<BiomeObject>();

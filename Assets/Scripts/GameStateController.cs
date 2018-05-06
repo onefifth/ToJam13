@@ -95,15 +95,14 @@ public class GameStateController : MonoBehaviour {
     }
 
     public static void ShowNewspaper() {
-        Debug.Log("Show News!");
         Singleton.player.canMove = false;
         Singleton.player.canTurn = false;
         Singleton.newspaper.ShowNews();
     }
 
     public static void OnNewspaperShown() {
-        Debug.Log("Done News!");
         Singleton.camAnim.CurrentViewpoint = 1;
+        Singleton.player.ResetPlayer();
         gState = GameState.NEWSPAPER;
     }
 }

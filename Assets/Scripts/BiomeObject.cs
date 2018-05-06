@@ -29,7 +29,7 @@ public class BiomeObject : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (transform.position.z < GameStateController.Singleton.player.transform.position.z - 20f) {
+        if (transform.position.z < GameStateController.Singleton.player.transform.position.z - 15f) {
             ResetPosition();
             biome.ChildReset();
             gameObject.SetActive(false);

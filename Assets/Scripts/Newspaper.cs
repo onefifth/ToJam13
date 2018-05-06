@@ -10,6 +10,8 @@ public class Newspaper : MonoBehaviour {
     Vector3 originalScale;
     Animator newsAnimator;
 
+    int shouldReset = 0;
+
     // Use this for initialization
     void Start () {
         newsAnimator = GetComponent<Animator>();
@@ -22,15 +24,20 @@ public class Newspaper : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (shouldReset > 0) {
+            --shouldReset;
+            if (shouldReset == 0) {
+                transform.parent.SetParent(cameraParent);
+                transform.parent.localPosition = originalPosition;
+                transform.parent.localRotation = originalRotation;
+                transform.parent.localScale = originalScale;
+            }
+        }
+    }
 
     public void ResetNewspaper() {
         newsAnimator.SetTrigger("hide");
-        transform.parent.SetParent(cameraParent);
-        transform.parent.localPosition = originalPosition;
-        transform.parent.localRotation = originalRotation;
-        transform.parent.localScale = originalScale;
+        shouldReset = 2;
     }
 
     public void ShowNews() {

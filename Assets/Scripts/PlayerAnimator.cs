@@ -8,7 +8,6 @@ public class PlayerAnimator : MonoBehaviour {
 
     public Animator anim;
     bool idle = false;
-    bool dead = false;
     float walkRate = 2.0f;
     float hitDistance = 2.0f;
 
@@ -41,13 +40,11 @@ public class PlayerAnimator : MonoBehaviour {
 
     public void TakeHit(Vector3 damageOrigin)
     {
-        if (!dead)
-        {
+        if (!player.isDead) {
             anim.SetTrigger("hit");
             anim.SetFloat("hitX", transform.position.x - damageOrigin.x);
             idle = false;
-            dead = true;
-
+            player.isDead = true;
         }
 
         //add motion

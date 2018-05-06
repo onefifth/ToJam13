@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
     public Vector3 m_actualPlayerDirection;
     public Vector3 m_smoothPlayerDirection;
 
+    private Vector3 originalPosition;
+
     private float m_turnSpeed;
     private WorldScroller p_worldScroller;
     private PlayerAnimator playerAnimator;
@@ -27,6 +29,19 @@ public class Player : MonoBehaviour {
 
     public bool canMove = false;
     public bool canTurn = false;
+    bool _isDead;
+    public bool isDead
+    {
+        get { return _isDead; }
+        set {
+            _isDead = value;
+            if (_isDead) {
+                canMove = false;
+                canTurn = false;
+            }
+            playerAnimator.anim.SetBool("dead", _isDead);
+        }
+    }
 
     [SerializeField]
     private float MaxSpeed;
@@ -53,15 +68,25 @@ public class Player : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        m_dashing = false;
-        m_doubleDashing = false;
-        m_smoothPlayerDirection = Vector3.forward;
-        m_actualPlayerDirection = Vector3.forward;
         m_screenwidth = Screen.width;
         //p_worldScroller = GameObject.FindGameObjectWithTag("World").GetComponent<WorldScroller>();
 
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
         m_rigidbody = GetComponent<Rigidbody>();
+        originalPosition = transform.localPosition;
+
+        ResetPlayer();
+    }
+
+    public void ResetPlayer() {
+        m_dashing = false;
+        m_doubleDashing = false;
+        m_smoothPlayerDirection = Vector3.forward;
+        m_actualPlayerDirection = Vector3.forward;
+
+        transform.localPosition = originalPosition;
+
+        isDead = false;
     }
 
     public void StartDisrobe() {
@@ -178,9 +203,7 @@ public class Player : MonoBehaviour {
     }
 
     public void SetControllable (bool controllable) {
-
         canMove = controllable;
         canTurn = controllable;
-
     }
 }
