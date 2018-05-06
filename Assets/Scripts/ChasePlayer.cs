@@ -49,7 +49,7 @@ public class ChasePlayer : MonoBehaviour {
                 }
                 else if (toPlayer.magnitude < chaseRadius)
                 {
-                    print("chase player");
+                    //print("chase player");
                     Vector3 walkDir = toPlayer.normalized;
                     Vector3 walkVec = walkDir * runRate * Time.deltaTime;
                     transform.position += walkVec;

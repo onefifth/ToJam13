@@ -8,6 +8,7 @@ public class PlayerAnimator : MonoBehaviour {
 
     public Animator anim;
     bool idle = false;
+    bool dead = false;
     float walkRate = 2.0f;
     float hitDistance = 2.0f;
 
@@ -21,14 +22,16 @@ public class PlayerAnimator : MonoBehaviour {
         anim.SetFloat("xWalk", player.m_actualPlayerDirection.x);
         anim.SetFloat("yWalk", player.m_actualPlayerDirection.z);
 
+        anim.speed = Mathf.Clamp(player.m_runSpeed * 0.4f, 1, 4);
+
         if (idle) {
             anim.SetBool("walking", player.m_runSpeed > 1f);
         }
 
-        if(Input.GetKey(KeyCode.E))
-        {
-            TakeHit(player.m_actualPlayerDirection.x);
-        }
+        //if(Input.GetKey(KeyCode.E))
+        //{
+        //    TakeHit(player.m_actualPlayerDirection.x);
+        //}
 
 	}
 
@@ -36,11 +39,16 @@ public class PlayerAnimator : MonoBehaviour {
         anim.SetTrigger("disrobe");
     }
 
-    public void TakeHit(float xDir)
+    public void TakeHit(Vector3 damageOrigin)
     {
-        anim.SetTrigger("hit");
-        anim.SetFloat("hitX", xDir);
-        idle = false;
+        if (!dead)
+        {
+            anim.SetTrigger("hit");
+            anim.SetFloat("hitX", transform.position.x - damageOrigin.x);
+            idle = false;
+            dead = true;
+        }
+
         //add motion
     }
 

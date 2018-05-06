@@ -134,7 +134,7 @@ public class Player : MonoBehaviour {
                 }
             }
 
-            Debug.Log(m_runSpeed / (MaxSpeed * RunningSpeedMultiplier));
+            //Debug.Log(m_runSpeed / (MaxSpeed * RunningSpeedMultiplier));
             if (m_dashing && Input.GetButtonDown("Run")) {
                 m_turnSpeed = 500f;
             } else {
@@ -176,5 +176,12 @@ public class Player : MonoBehaviour {
         //WorldScroller.s_movementDirection.z = -m_runSpeed;
 
         //transform.localRotation = Quaternion.AngleAxis(m_targetPlayerDirection.x * -35.0f, Vector3.forward);
+    }
+
+    public void SetControllable (bool controllable) {
+
+        canMove = controllable;
+        canTurn = controllable;
+
     }
 }
