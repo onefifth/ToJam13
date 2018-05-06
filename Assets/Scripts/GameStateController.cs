@@ -43,6 +43,10 @@ public class GameStateController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
+        }
+
         switch (gState) {
             case GameState.TITLE:
                 player.canMove = false;

@@ -133,7 +133,8 @@ public class ChasePlayer : MonoBehaviour {
 
 	}
 
-	private void OnDrawGizmos()
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
 	{
         if (UnityEditor.Selection.activeGameObject == gameObject) {
             Gizmos.color = Color.yellow;
@@ -142,4 +143,5 @@ public class ChasePlayer : MonoBehaviour {
             Gizmos.DrawWireSphere(transform.position, tackleRadius);
         }
 	}
+#endif
 }

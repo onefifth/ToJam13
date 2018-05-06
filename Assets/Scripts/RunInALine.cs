@@ -61,6 +61,7 @@ public class RunInALine : MonoBehaviour
 
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (UnityEditor.Selection.activeGameObject == gameObject)
@@ -72,4 +73,5 @@ public class RunInALine : MonoBehaviour
             Gizmos.DrawRay(transform.position, runDir);
 
     }
+#endif
 }
