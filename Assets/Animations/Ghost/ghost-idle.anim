@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: soccerLying-idle
+  m_Name: ghost-idle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,11 +19,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: a0bcc0a614ac544c28e7a8e866b31edf, type: 3}
-    - time: 0.20833333
-      value: {fileID: 21300000, guid: 43c28076295bb4a649cfcb537f97d708, type: 3}
-    - time: 0.45833334
-      value: {fileID: 21300000, guid: a0bcc0a614ac544c28e7a8e866b31edf, type: 3}
+      value: {fileID: 21300000, guid: 42496703dd0d4484287df85ae65ea98a, type: 3}
+    - time: 1
+      value: {fileID: 21300000, guid: 42496703dd0d4484287df85ae65ea98a, type: 3}
+    - time: 2.125
+      value: {fileID: 21300000, guid: 35ea4664e2e8f4521b76d65378015139, type: 3}
+    - time: 3.5416667
+      value: {fileID: 21300000, guid: 42496703dd0d4484287df85ae65ea98a, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -43,15 +45,16 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: a0bcc0a614ac544c28e7a8e866b31edf, type: 3}
-    - {fileID: 21300000, guid: 43c28076295bb4a649cfcb537f97d708, type: 3}
-    - {fileID: 21300000, guid: a0bcc0a614ac544c28e7a8e866b31edf, type: 3}
+    - {fileID: 21300000, guid: 42496703dd0d4484287df85ae65ea98a, type: 3}
+    - {fileID: 21300000, guid: 42496703dd0d4484287df85ae65ea98a, type: 3}
+    - {fileID: 21300000, guid: 35ea4664e2e8f4521b76d65378015139, type: 3}
+    - {fileID: 21300000, guid: 42496703dd0d4484287df85ae65ea98a, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 3.5833335
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

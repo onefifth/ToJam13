@@ -9,7 +9,8 @@ public class RunInALine : MonoBehaviour
     public float runRate;
     Animator anim;
     //Rigidbody rb;
-    public bool idle = true;
+    public bool active = false;
+    public float wakeupRadius;
 
     public Vector3 runDir; 
 
@@ -23,28 +24,43 @@ public class RunInALine : MonoBehaviour
     {
         //anim.SetBool("walking", false);
 
-        if (idle)
+        if (player == null)
         {
-            Vector3 walkDir = runDir.normalized;
-            Vector3 walkVec = walkDir * runRate * Time.deltaTime;
-            transform.position += walkVec;
+            player = FindObjectOfType<Player>();
+        }
+        else
+        {
 
-            anim.SetBool("walking", true);
-            anim.SetFloat("xWalk", walkDir.x);
-            anim.SetFloat("yWalk", walkDir.z);
+            if(Vector3.Distance(transform.position, player.transform.position) < wakeupRadius) 
+            {
+                active = true;    
+            }
+
+            if (active)
+            {
+                Vector3 walkDir = runDir.normalized;
+                Vector3 walkVec = walkDir * runRate * Time.deltaTime;
+                transform.position += walkVec;
+
+                anim.SetBool("walking", true);
+                anim.SetFloat("xWalk", walkDir.x);
+                anim.SetFloat("yWalk", walkDir.z);
 
 
+            }
         }
 
     }
 
     private void OnDrawGizmos()
     {
-        //if (UnityEditor.Selection.activeGameObject == gameObject)
-        //{
-            
+        if (UnityEditor.Selection.activeGameObject == gameObject)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, wakeupRadius);
+        }   
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, runDir);
-        //}
+
     }
 }

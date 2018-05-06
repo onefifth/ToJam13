@@ -12,6 +12,7 @@ public class ChasePlayer : MonoBehaviour {
     Rigidbody rb;
     public bool idle = true;
 
+    public bool doTackles = true;
     [SerializeField]
     private AnimationCurve tackleAccelCurve;
     [SerializeField]
@@ -49,7 +50,7 @@ public class ChasePlayer : MonoBehaviour {
             {
                 Vector3 toPlayer = new Vector3(player.transform.position.x, 0, player.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z);
 
-                if (toPlayer.magnitude < tackleRadius)
+                if (toPlayer.magnitude < tackleRadius & doTackles)
                 {
                     StartTackle();
                 }
