@@ -5,9 +5,10 @@ using UnityEngine;
 public class DamagePlayer : MonoBehaviour {
 
     public int DamageAmount = 1;
+    public bool Jumpable = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
