@@ -32,7 +32,7 @@ public class BiomeManager : MonoBehaviour {
 
     public void StartGame(float distance = 0f)
     {
-        m_startingDistance = playerTransform.position.z + distance - 3f;
+        //m_startingDistance = playerTransform.position.z + distance;
         m_activeBiomeIndex = 0;
 
         foreach (Transform child in transform) {
@@ -45,7 +45,7 @@ public class BiomeManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        m_currentDistance = playerTransform.position.z - m_startingDistance;
+        m_currentDistance = playerTransform.position.z + 12f;
 
         Debug.DrawLine(new Vector3(-10f, 0f, m_currentDistance), new Vector3(10f, 0f, m_currentDistance), Color.red);
 

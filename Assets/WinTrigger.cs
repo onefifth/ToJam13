@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WinTrigger : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void OnTriggerEnter(Collider other) {
+        if (other.GetComponentInParent<Player>() != null) {
+            GameStateController.Singleton.winGame();
+        }
+    }
 }
