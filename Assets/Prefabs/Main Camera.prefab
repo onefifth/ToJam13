@@ -590,6 +590,11 @@ MonoBehaviour:
     Pitch: 50
     OrthoSize: 5
     TransitionDuration: 0.1
+  - Name: Credits
+    Position: {x: 0, y: 14, z: 168}
+    Pitch: 60
+    OrthoSize: 5
+    TransitionDuration: 10
   StartPosition: {x: 0, y: 5, z: -12}
   CurrentViewpoint: 0
   NewspaperObject: {fileID: 1709555072318082}

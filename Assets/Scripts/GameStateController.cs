@@ -43,7 +43,7 @@ public class GameStateController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        switch (gState){
+        switch (gState) {
             case GameState.TITLE:
                 player.canMove = false;
                 player.canTurn = false;
@@ -51,7 +51,6 @@ public class GameStateController : MonoBehaviour {
                 if (!camAnim.IsTransitioning() && Input.anyKeyDown)
                 {
                     player.StartDisrobe();
-                    biomeManager.StartGame();
                     gState = GameState.INTRO;
                     camAnim.CurrentViewpoint = 2;
                 }
@@ -60,7 +59,7 @@ public class GameStateController : MonoBehaviour {
                 //debug skip disrobing
                 //if (Input.anyKeyDown)
                 //{
-                    //player.StartDisrobe();
+                //player.StartDisrobe();
                 //}
                 break;
             case GameState.PLAYING:
@@ -70,7 +69,14 @@ public class GameStateController : MonoBehaviour {
 
                 if (!camAnim.IsTransitioning() && Input.GetKeyUp(KeyCode.Space)) {
                     Singleton.player.ResetPlayer();
+                    biomeManager.StartGame();
                     newspaper.transform.parent.parent = null;
+                    BeginTitle();
+                }
+                break;
+            case GameState.CREDITS:
+                if ((!camAnim.IsTransitioning() && Input.GetKeyUp(KeyCode.Space)) || Input.GetKeyUp(KeyCode.R)) {
+                    Singleton.player.ResetPlayer();
                     BeginTitle();
                 }
                 break;
@@ -104,5 +110,11 @@ public class GameStateController : MonoBehaviour {
     public static void OnNewspaperShown() {
         Singleton.camAnim.CurrentViewpoint = 1;
         gState = GameState.NEWSPAPER;
+    }
+
+    public void winGame() {
+        player.SetControllable(false);
+        gState = GameState.CREDITS;
+        camAnim.CurrentViewpoint = 3;
     }
 }
