@@ -66,7 +66,7 @@ public class CameraAnimator : MonoBehaviour
             else
                 transitionDuration = Viewpoints[CurrentViewpoint].TransitionDuration;
 
-            if (CurrentViewpoint == 3) {
+            if (CurrentViewpoint == 3 || CurrentViewpoint == 1) {
                 transitionDuration = Viewpoints[CurrentViewpoint].TransitionDuration;
             }
 

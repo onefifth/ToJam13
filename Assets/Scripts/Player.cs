@@ -101,7 +101,6 @@ public class Player : MonoBehaviour {
         m_actualPlayerDirection = Vector3.forward;
 
         if (clothes) {
-            Debug.Log("Yeah?");
             Destroy(clothes);
         }
 

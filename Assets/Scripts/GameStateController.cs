@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -48,8 +48,7 @@ public class GameStateController : MonoBehaviour {
                 player.canMove = false;
                 player.canTurn = false;
                 // Update block for main titlescreen.
-                if (!camAnim.IsTransitioning() && Input.anyKeyDown)
-                {
+                if (!camAnim.IsTransitioning() && Input.anyKeyDown) {
                     player.StartDisrobe();
                     gState = GameState.INTRO;
                     camAnim.CurrentViewpoint = 2;
@@ -75,9 +74,9 @@ public class GameStateController : MonoBehaviour {
                 }
                 break;
             case GameState.CREDITS:
-                if ((!camAnim.IsTransitioning() && Input.GetKeyUp(KeyCode.Space)) || Input.GetKeyUp(KeyCode.R)) {
-                    camAnim.CurrentViewpoint = 3;
-                    gState = GameState.NEWSPAPER;
+                if ((!camAnim.IsTransitioning() && (Input.GetButtonDown("Jump") || Input.GetButtonDown("Run"))) || Input.GetKeyUp(KeyCode.R)) {
+                    Scene scene = SceneManager.GetActiveScene();
+                    SceneManager.LoadScene(scene.name);
                 }
                 break;
             default:
