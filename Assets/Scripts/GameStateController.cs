@@ -76,8 +76,8 @@ public class GameStateController : MonoBehaviour {
                 break;
             case GameState.CREDITS:
                 if ((!camAnim.IsTransitioning() && Input.GetKeyUp(KeyCode.Space)) || Input.GetKeyUp(KeyCode.R)) {
-                    Singleton.player.ResetPlayer();
-                    BeginTitle();
+                    camAnim.CurrentViewpoint = 3;
+                    gState = GameState.NEWSPAPER;
                 }
                 break;
             default:
@@ -102,8 +102,7 @@ public class GameStateController : MonoBehaviour {
     }
 
     public static void ShowNewspaper() {
-        Singleton.player.canMove = false;
-        Singleton.player.canTurn = false;
+        Singleton.player.SetControllable(false);
         Singleton.newspaper.ShowNews();
     }
 
@@ -115,6 +114,7 @@ public class GameStateController : MonoBehaviour {
     public void winGame() {
         player.SetControllable(false);
         gState = GameState.CREDITS;
+        Singleton.player.ResetPlayer();
         camAnim.CurrentViewpoint = 3;
     }
 }
