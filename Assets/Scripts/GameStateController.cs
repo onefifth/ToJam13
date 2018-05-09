@@ -46,7 +46,7 @@ public class GameStateController : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraAnimator>();
 
-        newspaper = GameObject.FindObjectOfType<Newspaper>();
+        newspaper = FindObjectOfType<Newspaper>();
         if(Singleton == null)
         {
             Singleton = this;
@@ -68,6 +68,7 @@ public class GameStateController : MonoBehaviour {
                 // Update block for main titlescreen.
                 if (!camAnim.IsTransitioning() && Input.anyKeyDown) {
                     player.StartDisrobe();
+                    PlayMainSongDelayed();
                     gState = GameState.INTRO;
                     camAnim.CurrentViewpoint = 2;
                 }
@@ -82,7 +83,7 @@ public class GameStateController : MonoBehaviour {
             case GameState.PLAYING:
                 break;
             case GameState.NEWSPAPER:
-                mainLoop.volume = Mathf.Max(0, mainLoop.volume - 0.1f * Time.deltaTime);
+                mainLoop.volume = Mathf.Max(0, mainLoop.volume - 0.75f * Time.deltaTime);
 
                 if (!camAnim.IsTransitioning() && Input.GetKeyUp(KeyCode.Space)) {
                     Singleton.player.ResetPlayer();
@@ -112,11 +113,31 @@ public class GameStateController : MonoBehaviour {
     }
 
     public static void BeginPlaying () {
-        Singleton.mainLoop.volume = 1f;
-        Singleton.mainLoop.Play();
-        Singleton.introLoop.Stop();
+        //Singleton.mainLoop.volume = 1f;
+        //Singleton.mainLoop.Play();
+        //Singleton.introLoop.Stop();
 
         gState = GameState.PLAYING;
+    }
+
+    void PlayMainSongDelayed() {
+        print("play main song delayed");
+        mainLoop.volume = 1;
+
+        float beatLength = 60f / 170f; // 170 is the bpm
+        float barLength = beatLength * 16f;
+        float interruptInterval = barLength;
+
+        double curElapsed = AudioSettings.dspTime - introLoopBegunTime;
+        double curIntervalPoint = curElapsed % interruptInterval;
+        double waitTime = interruptInterval - curIntervalPoint;
+        waitTime -= barLength / 16f; //the organ comes in just before the bar
+        print(curElapsed + " has elapsed so far");
+        print("wait for this long to end the bar:" + waitTime);
+
+        introLoop.SetScheduledEndTime(AudioSettings.dspTime + waitTime);
+        mainLoop.PlayScheduled(AudioSettings.dspTime + waitTime);
+    
     }
 
     public static void ShowNewspaper() {
