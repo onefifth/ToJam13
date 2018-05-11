@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class Newspaper : MonoBehaviour {
 
@@ -27,6 +28,12 @@ public class Newspaper : MonoBehaviour {
     };
 
     int shouldReset = 0;
+    public AudioSource sfxSpin1;
+    public AudioSource sfxSpin2;
+    public AudioSource sfxAppeared;
+    Coroutine spinAudioRoutine;
+
+    public AudioMixerSnapshot endgameSnapshot;
 
     // Use this for initialization
     void Start () {
@@ -60,7 +67,41 @@ public class Newspaper : MonoBehaviour {
     public void ShowNews() {
         ResetNewspaper();
         newsAnimator.SetTrigger("appear");
+    }
 
+    public void StartSpinSFX() {
+		endgameSnapshot.TransitionTo(3.0f);
+        spinAudioRoutine = StartCoroutine(DoSpinAudio());
+    }
+
+    IEnumerator DoSpinAudio() {
+
+        sfxSpin1.Play();
+        float elapsed = 0;
+        bool spin2on = false;
+
+        while (true) {
+
+            float tVolume = Mathf.Min(elapsed / 1.0f, 1.0f);
+            sfxSpin1.volume = Mathf.Lerp(0, 1, tVolume);
+            sfxSpin2.volume = Mathf.Lerp(0, 1, tVolume);
+
+            elapsed += Time.deltaTime;
+
+
+            if(elapsed > 0.25f & !spin2on) {
+                sfxSpin2.Play();
+                spin2on = true;
+            }
+            yield return null;
+        }
+    }
+
+    public void StopSpinSFX () {
+        StopCoroutine(spinAudioRoutine);
+        sfxSpin1.Stop();
+        sfxSpin2.Stop();
+        sfxAppeared.Play();
     }
 
     void RandomizeText () {

@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4073342098977956}
   - component: {fileID: 212740894791962694}
   - component: {fileID: 114891552788218184}
+  - component: {fileID: 95004158914020022}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -131,6 +132,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 2.73, z: 2.5}
   m_Center: {x: -0.25, y: -0.68, z: 0.66}
+--- !u!95 &95004158914020022
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416894435062678}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f8a8aa9b01a624088a55166ea83c47d1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114320826284291370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97463ae219694f03b8d2dc77917fe8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reactRadius: 0.5
+  reactRadius: 1
 --- !u!114 &114804744245491304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,6 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageAmount: 0
+  Jumpable: 0
 --- !u!212 &212740894791962694
 SpriteRenderer:
   m_ObjectHideFlags: 1

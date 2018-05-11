@@ -82,6 +82,9 @@ public class Player : MonoBehaviour {
 
     GameObject clothes;
 
+    public Sfx dashSfx;
+    public Sfx jumpSfx;
+
     // Use this for initialization
     void Start () {
         m_screenwidth = Screen.width;
@@ -171,6 +174,10 @@ public class Player : MonoBehaviour {
             if (m_dashing) {
                 m_lastDash += JumpDuration * 0.5f;
             }
+
+            if(canMove) {
+                jumpSfx.Play();
+            }
         }
 
         if (m_jumping && (Time.realtimeSinceStartup - m_lastJump) > JumpDuration + 0.1f) {
@@ -186,6 +193,9 @@ public class Player : MonoBehaviour {
                     m_doubleDashing = m_dashing;
                     m_dashing = true;
                     m_fakeDash = false;
+                    if(canMove) {
+                        dashSfx.Play();
+                    }
                 }
             } else if (!m_dashing) {
                 m_fakeDash = m_runSpeed < 0.5f;

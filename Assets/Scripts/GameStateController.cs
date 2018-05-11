@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public enum GameState
 {
@@ -20,6 +21,7 @@ public class GameStateController : MonoBehaviour {
 
     public AudioSource introLoop;
     public AudioSource mainLoop;
+    public AudioMixerSnapshot defaultSnapshot;
     double introLoopBegunTime;
 
     public Player player { get; private set; }
@@ -27,6 +29,7 @@ public class GameStateController : MonoBehaviour {
     private BiomeManager biomeManager;
     private Newspaper newspaper;
     private CameraAnimator camAnim;
+
 
 	// Use this for initialization
 	void Start () {
@@ -109,6 +112,7 @@ public class GameStateController : MonoBehaviour {
         Singleton.mainLoop.volume = 0f;
         Singleton.introLoop.Play();
         Singleton.introLoopBegunTime = AudioSettings.dspTime;
+		Singleton.defaultSnapshot.TransitionTo(0.0f);
         gState = GameState.TITLE;
     }
 
@@ -121,7 +125,6 @@ public class GameStateController : MonoBehaviour {
     }
 
     void PlayMainSongDelayed() {
-        print("play main song delayed");
         mainLoop.volume = 1;
 
         float beatLength = 60f / 170f; // 170 is the bpm
@@ -132,8 +135,6 @@ public class GameStateController : MonoBehaviour {
         double curIntervalPoint = curElapsed % interruptInterval;
         double waitTime = interruptInterval - curIntervalPoint;
         waitTime -= barLength / 16f; //the organ comes in just before the bar
-        print(curElapsed + " has elapsed so far");
-        print("wait for this long to end the bar:" + waitTime);
 
         introLoop.SetScheduledEndTime(AudioSettings.dspTime + waitTime);
         mainLoop.PlayScheduled(AudioSettings.dspTime + waitTime);

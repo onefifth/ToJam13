@@ -10,6 +10,7 @@ AudioMixerController:
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
   - {fileID: 24500006}
+  - {fileID: 245537874538402030}
   m_StartSnapshot: {fileID: 24500006}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
@@ -20,6 +21,7 @@ AudioMixerController:
     - 6f295a91bb4ca469bab64819056113b4
     - 5967aae471b534b9885216c306869485
     - 92ab76148260044328f7fb40e400d6e0
+    - b5ba37ebcf4cc4ef29ed70ccee592c46
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -33,6 +35,7 @@ AudioMixerGroupController:
   m_GroupID: 6f295a91bb4ca469bab64819056113b4
   m_Children:
   - {fileID: 243091785960629744}
+  - {fileID: 243259975151842528}
   - {fileID: 243128036798221302}
   m_Volume: 9fc63f9ef4122498fa1b19ab9db2f800
   m_Pitch: 06e913a2d4ad644c29bedea45710eeb3
@@ -60,7 +63,7 @@ AudioMixerSnapshotController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Snapshot
+  m_Name: Default
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 38e8aa268626d4502ad62fa96ae272f3
   m_FloatValues:
@@ -72,7 +75,7 @@ AudioMixerGroupController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: SFX
+  m_Name: InGameSFX
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 92ab76148260044328f7fb40e400d6e0
   m_Children: []
@@ -101,6 +104,36 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &243259975151842528
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: EndGameSFX
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: b5ba37ebcf4cc4ef29ed70ccee592c46
+  m_Children: []
+  m_Volume: 8e43df964582443e384a5335fdc27ee2
+  m_Pitch: 535a25ae49d454d5a8398e5f89256295
+  m_Effects:
+  - {fileID: 244292346339451136}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &244292346339451136
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 779c338845c2e4e139fb87355d66cb65
+  m_EffectName: Attenuation
+  m_MixLevel: 4dd5107cb55f44624b3b24c9ad42d538
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &244642688951322918
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -127,3 +160,16 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!245 &245537874538402030
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Endgame
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 5bc76d6321fe34d7bab099387338e1c6
+  m_FloatValues:
+    ee370fe380270493b9629435810516f1: -21.302507
+    62ab30789617e4019a474500f4ce2826: -80
+    9fc63f9ef4122498fa1b19ab9db2f800: 6.7923827
+  m_TransitionOverrides: {}

@@ -51,7 +51,7 @@ public class RunInALine : MonoBehaviour
                 if(xDir < 0) {
                     xDir = -1.0f;
                 }
-                print(xDir);
+                //print(xDir);
                 anim.SetFloat("yWalk", xDir);
 				anim.SetFloat("xWalk", walkDir.x);
 
