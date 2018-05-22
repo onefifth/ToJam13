@@ -34,18 +34,23 @@ public class GameStateController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        float portraitX;
-        float portraitY;
-        if(Screen.currentResolution.width > Screen.currentResolution.height * 3/4) {
-            portraitX = Screen.currentResolution.height * 3/4;
-            portraitY = Screen.currentResolution.height;
-        }
-        else {
-            portraitX = Screen.currentResolution.width;
-            portraitY = Screen.currentResolution.width * 4/3;
-        }
+        #if UNITY_STANDALONE
 
-        Screen.SetResolution(Mathf.RoundToInt(portraitX),Mathf.RoundToInt(portraitY),Screen.fullScreen);
+            float portraitX;
+            float portraitY;
+            if(Screen.currentResolution.width > Screen.currentResolution.height * 3/4) {
+                portraitX = Screen.currentResolution.height * 3/4;
+                portraitY = Screen.currentResolution.height;
+            }
+            else {
+                portraitX = Screen.currentResolution.width;
+                portraitY = Screen.currentResolution.width * 4/3;
+            }
+
+            Screen.SetResolution(Mathf.RoundToInt(portraitX),Mathf.RoundToInt(portraitY),Screen.fullScreen);
+
+        #endif
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         camAnim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraAnimator>();
 
